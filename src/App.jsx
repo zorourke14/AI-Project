@@ -9,7 +9,7 @@ import AiHintModal from './components/HintModal';
 import AiExplanationModal from './components/ExplanationModal';
 import AiCodeReviewModal from './components/CodeReviewModal';
 import Timer from './components/Timer';
-
+import Quiz from './components/Quiz';
 // Define problem templates
 const problemTemplates = {
   'two-sum': `def two_sum(nums: list[int], target: int) -> list[int]:
@@ -42,6 +42,9 @@ const CodingPracticeApp = () => {
   const [showProblemList, setShowProblemList] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
+  const [showQuiz, setShowQuiz] = useState(false);
+
+
 
   const handleProblemSelect = useCallback((problem) => {
     setSelectedProblem(problem);
@@ -77,6 +80,9 @@ const CodingPracticeApp = () => {
       if (response.ok) {
         setOutput(data.output);
         setTestsPassed(data.allTestsPassed);
+        if (data.allTestsPassed) {
+          setShowQuiz(true);
+        }
       } else {
         setOutput(`Error: ${data.error}\n${data.details || ''}`);
         setTestsPassed(false);
@@ -141,14 +147,14 @@ const CodingPracticeApp = () => {
                 <div>
                   <h2 className="text-2xl font-bold text-purple-500 mb-4">Problem Description</h2>
                   <ProblemView problem={selectedProblem} />
-                  <div className="mt-6 flex flex-wrap gap-4">
+                  {/* <div className="mt-6 flex flex-wrap gap-4">
                     <Button onClick={() => setShowAiExplanation(true)} variant="accent">
                       AI Explanation
                     </Button>
                     <Button onClick={() => setShowAiHint(true)} variant="secondary">
                       Get Hint
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-purple-500 mb-4">Code Editor</h2>
@@ -161,7 +167,7 @@ const CodingPracticeApp = () => {
                     <Button onClick={handleCompile} disabled={isLoading}>
                       {isLoading ? 'Running...' : 'Run Code'}
                     </Button>
-                    <Button onClick={handleClear} variant="secondary" disabled={isLoading}>Reset Code</Button>
+                    {/* <Button onClick={handleClear} variant="secondary" disabled={isLoading}>Reset Code</Button> */}
                     <Button onClick={() => setShowAiCodeReview(true)} variant="accent" disabled={isLoading}>
                       AI Code Review
                     </Button>
@@ -177,6 +183,7 @@ const CodingPracticeApp = () => {
                   )}
                 </div>
               </div>
+              
             ) : (
               <div className={`text-center p-12 ${darkMode ? 'bg-gray-800' : 'bg-gray-200'} rounded-lg shadow-lg`}>
                 <p className={`text-2xl ${darkMode ? 'text-purple-400' : 'text-purple-600'}`}>Select a problem from the list to get started.</p>
@@ -208,6 +215,18 @@ const CodingPracticeApp = () => {
           problem={selectedProblem}
           userCode={code}
         />
+      )}
+      {showQuiz && selectedProblem && (
+        <div className="container px-24 py-10">
+          <h1 className="text-3xl font-bold text-purple-500 mb-4">Test Your Knowledge</h1>
+
+          <Quiz 
+            problemId={selectedProblem.id}
+            problemDescription={selectedProblem.description}
+            userCode={code}
+            onClose={() => setShowQuiz(false)} 
+          />
+        </div>
       )}
       {isLoading && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
