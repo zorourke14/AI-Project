@@ -74,7 +74,7 @@ const Quiz = ({ problemId, problemDescription, userCode, onClose }) => {
 
   if (isLoading) {
     return (
-      <div className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-lg">
+      <div className="p-6 rounded-lg dark:bg-gray-800 bg-white shadow-lg">
         <div className="flex justify-center items-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
         </div>
@@ -84,9 +84,9 @@ const Quiz = ({ problemId, problemDescription, userCode, onClose }) => {
 
   if (error) {
     return (
-      <div className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-lg">
+      <div className="p-6 rounded-lg dark:bg-gray-800 bg-white shadow-lg">
         <h2 className="text-xl font-bold text-red-500 mb-4">Error Loading Quiz</h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{error}</p>
+        <p className="dark:text-gray-300 text-gray-700 mb-4">{error}</p>
         <button
           onClick={onClose}
           className="px-6 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors"
@@ -98,15 +98,15 @@ const Quiz = ({ problemId, problemDescription, userCode, onClose }) => {
   }
 
   return (
-    <div className="p-6 rounded-lg dark:bg-gray-800 shadow-lg">
+    <div className="p-6 rounded-lg dark:bg-gray-800 bg-white shadow-lg">
       <h2 className="text-2xl font-bold text-purple-500 mb-6">
         {isComplete ? 'Quiz Complete!' : `Question ${currentQuestionIndex + 1} of ${questions.length}`}
       </h2>
       
       {isComplete ? (
         <div>
-          <h3 className="text-xl mb-4">Your Score: {score}/{questions.length}</h3>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
+          <h3 className="text-xl mb-4 dark:text-white text-gray-900">Your Score: {score}/{questions.length}</h3>
+          <p className="dark:text-gray-300 text-gray-700 mb-4">
             {score === questions.length 
               ? "Perfect score! You've mastered this concept!" 
               : "Keep practicing to improve your understanding!"}
@@ -129,14 +129,15 @@ const Quiz = ({ problemId, problemDescription, userCode, onClose }) => {
                 key={index}
                 onClick={() => handleAnswerSelect(index)}
                 className={`w-full p-4 text-left rounded-lg border-2 transition-all
+                  dark:text-white text-gray-900
                   ${selectedAnswer === index 
-                    ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20' 
-                    : 'border-gray-200 dark:border-gray-700 hover:border-purple-300'}
+                    ? 'border-purple-500 dark:bg-purple-900/20 bg-purple-100' 
+                    : 'dark:border-gray-700 border-gray-200 dark:hover:border-purple-300 hover:border-purple-500'}
                   ${isAnswered && index === currentQuestion.correctAnswer 
-                    ? 'bg-green-50 dark:bg-green-900/20 border-green-500' 
+                    ? 'dark:bg-green-900/20 bg-green-100 border-green-500' 
                     : ''}
                   ${isAnswered && index === selectedAnswer && index !== currentQuestion.correctAnswer 
-                    ? 'bg-red-50 dark:bg-red-900/20 border-red-500' 
+                    ? 'dark:bg-red-900/20 bg-red-100 border-red-500' 
                     : ''}
                 `}
                 disabled={isAnswered}
@@ -176,7 +177,7 @@ const Quiz = ({ problemId, problemDescription, userCode, onClose }) => {
                 <ArrowRight className="h-4 w-4" />
               </button>
             )}
-            <div className="text-gray-500">
+            <div className="dark:text-gray-500 text-gray-600">
               Score: {score}/{currentQuestionIndex + 1}
             </div>
           </div>

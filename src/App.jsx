@@ -10,6 +10,8 @@ import AiExplanationModal from './components/ExplanationModal';
 import AiCodeReviewModal from './components/CodeReviewModal';
 import Timer from './components/Timer';
 import Quiz from './components/Quiz';
+import GiveSolution from './components/GiveSolution';
+
 // Define problem templates
 const problemTemplates = {
   'two-sum': `def two_sum(nums: list[int], target: int) -> list[int]:
@@ -249,6 +251,11 @@ const CodingPracticeApp = () => {
                     <Button onClick={() => setShowAiCodeReview(true)} variant="accent" disabled={isLoading}>
                       AI Code Review
                     </Button>
+                    <GiveSolution 
+                      problemId={selectedProblem.id}
+                      problemDescription={selectedProblem.description}
+                      userCode={code}
+                    />
                   </div>
                 </div>
                 <div>
