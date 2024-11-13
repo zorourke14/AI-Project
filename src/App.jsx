@@ -26,7 +26,83 @@ if __name__ == "__main__":
     result = two_sum(nums, target)
     print(json.dumps(result))
 `,
-  // Add more problem templates here
+
+'reverse-linked-list': `class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def reverse_linked_list(head: ListNode) -> ListNode:
+    # Your code here
+    pass
+
+# Do not modify the code below this line
+if __name__ == "__main__":
+    import sys
+    import json
+
+    def create_linked_list(arr):
+        if not arr:
+            return None
+        head = ListNode(arr[0])
+        current = head
+        for val in arr[1:]:
+            current.next = ListNode(val)
+            current = current.next
+        return head
+
+    def linked_list_to_array(node):
+        result = []
+        while node:
+            result.append(node.val)
+            node = node.next
+        return result
+
+    input_data = json.loads(sys.argv[1])[0]  # Extract the array from the outer array
+    head = create_linked_list(input_data)
+    result = reverse_linked_list(head)
+    print(json.dumps(linked_list_to_array(result)))
+`,
+
+'height-of-binary-tree': `class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def height_of_binary_tree(root: TreeNode) -> int:
+    # Your code here
+    pass
+
+# Do not modify the code below this line
+if __name__ == "__main__":
+    import sys
+    import json
+
+    def create_binary_tree(values):
+        if not values:
+            return None
+        
+        root = TreeNode(values[0])
+        queue = [root]
+        i = 1
+        while queue and i < len(values):
+            node = queue.pop(0)
+            if i < len(values) and values[i] is not None:
+                node.left = TreeNode(values[i])
+                queue.append(node.left)
+            i += 1
+            if i < len(values) and values[i] is not None:
+                node.right = TreeNode(values[i])
+                queue.append(node.right)
+            i += 1
+        return root
+
+    input_data = json.loads(sys.argv[1])[0]  # Extract the array from the outer array
+    root = create_binary_tree(input_data)
+    result = height_of_binary_tree(root)
+    print(result - 1)
+`,
 };
 
 const CodingPracticeApp = () => {
@@ -48,7 +124,14 @@ const CodingPracticeApp = () => {
 
   const handleProblemSelect = useCallback((problem) => {
     setSelectedProblem(problem);
-    setCode(problemTemplates[problem.id] || '');
+    // Check if the problem ID exists in templates and use the corresponding template
+    if (problem && problem.id && problemTemplates[problem.id]) {
+      setShowQuiz(false)
+      setCode(problemTemplates[problem.id]);
+    } else {
+      console.warn(`No template found for problem ID: ${problem?.id}`);
+      setCode(''); // Set empty code if no template is found
+    }
     setOutput('');
     setTestsPassed(null);
     setTimerActive(false);
@@ -96,11 +179,6 @@ const CodingPracticeApp = () => {
     }
   }, [code, selectedProblem]);
 
-  const handleClear = useCallback(() => {
-    setCode(problemTemplates[selectedProblem.id] || '');
-    setOutput('');
-    setTestsPassed(null);
-  }, [selectedProblem]);
 
   const toggleTimer = useCallback(() => {
     setTimerActive(prev => !prev);

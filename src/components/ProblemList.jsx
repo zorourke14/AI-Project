@@ -13,17 +13,28 @@ const problems = [
         'Only one valid answer exists.'
       ]
     },
-    { 
-      id: 2, 
-      title: 'Add Two Numbers', 
-      difficulty: 'Medium', 
-      tags: ['Linked List', 'Math'],
-      description: 'You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.',
-      example: 'Input: l1 = [2,4,3], l2 = [5,6,4]\nOutput: [7,0,8]\nExplanation: 342 + 465 = 807.',
+    {
+      id: 'reverse-linked-list',
+      title: 'Reverse Linked List',
+      difficulty: 'Easy',
+      tags: ['Linked List'],
+      description: 'Given the head of a singly linked list, reverse the list and return the reversed list.',
+      example: 'Input: head = [1,2,3,4,5]\nOutput: [5,4,3,2,1]',
       constraints: [
-        'The number of nodes in each linked list is in the range [1, 100].',
-        '0 <= Node.val <= 9',
-        'It is guaranteed that the list represents a number that does not have leading zeros.'
+        'The number of nodes in the list is in the range [0, 5000].',
+        '-5000 <= Node.val <= 5000'
+      ]
+    },
+    {
+      id: 'height-of-binary-tree',
+      title: 'Height Of Binary Tree',
+      difficulty: 'Medium',
+      tags: ['Tree', 'Recursion'],
+      description: 'Given the root of a binary tree, find its height. The height of a binary tree is the number of edges on the longest path from the root to a leaf node.',
+      example: 'Input: root = [3,9,20,null,null,15,7]\nOutput: 2\nExplanation: The longest path is [3 -> 20 -> 7].',
+      constraints: [
+        'The number of nodes in the tree is in the range [0, 10^4].',
+        '-100 <= Node.val <= 100'
       ]
     },
   ];

@@ -98,7 +98,7 @@ const Quiz = ({ problemId, problemDescription, userCode, onClose }) => {
   }
 
   return (
-    <div className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-lg">
+    <div className="p-6 rounded-lg dark:bg-gray-800 shadow-lg">
       <h2 className="text-2xl font-bold text-purple-500 mb-6">
         {isComplete ? 'Quiz Complete!' : `Question ${currentQuestionIndex + 1} of ${questions.length}`}
       </h2>
