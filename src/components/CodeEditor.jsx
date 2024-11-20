@@ -54,7 +54,7 @@ const CodeEditor = ({ code, onChange, language = 'javascript' }) => {
     }
   }, [code]);
 
-  return <div ref={editorRef} style={{ width: '100%', height: '300px' }} />;
+  return <div ref={editorRef} style={{ width: '100%', height: '500px' }} />;
 };
 
 export default CodeEditor;

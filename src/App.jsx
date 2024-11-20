@@ -7,10 +7,11 @@ import CodeEditor from './components/CodeEditor';
 import OutputPane from './components/OutputPane';
 import AiHintModal from './components/HintModal';
 import AiExplanationModal from './components/ExplanationModal';
-import AiCodeReviewModal from './components/CodeReviewModal';
 import Timer from './components/Timer';
 import Quiz from './components/Quiz';
 import GiveSolution from './components/GiveSolution';
+import CodeReviewSection from './components/CodeReviewSection';
+
 
 // Define problem templates
 const problemTemplates = {
@@ -114,7 +115,6 @@ const CodingPracticeApp = () => {
   const [testsPassed, setTestsPassed] = useState(null);
   const [showAiHint, setShowAiHint] = useState(false);
   const [showAiExplanation, setShowAiExplanation] = useState(false);
-  const [showAiCodeReview, setShowAiCodeReview] = useState(false);
   const [timerActive, setTimerActive] = useState(false);
   const [difficulty, setDifficulty] = useState('all');
   const [showProblemList, setShowProblemList] = useState(true);
@@ -243,13 +243,10 @@ const CodingPracticeApp = () => {
                     onChange={handleCodeChange}
                     language="python"
                   />
-                  <div className="mt-6 flex flex-wrap gap-4">
+                 <div className="space-y-6">
+                  <div className="pt-5 flex flex-wrap gap-4">
                     <Button onClick={handleCompile} disabled={isLoading}>
                       {isLoading ? 'Running...' : 'Run Code'}
-                    </Button>
-                    {/* <Button onClick={handleClear} variant="secondary" disabled={isLoading}>Reset Code</Button> */}
-                    <Button onClick={() => setShowAiCodeReview(true)} variant="accent" disabled={isLoading}>
-                      AI Code Review
                     </Button>
                     <GiveSolution 
                       problemId={selectedProblem.id}
@@ -257,6 +254,13 @@ const CodingPracticeApp = () => {
                       userCode={code}
                     />
                   </div>
+                  <CodeReviewSection 
+                    problem={selectedProblem}
+                    userCode={code}
+                    darkMode={darkMode}
+                  />
+                </div>
+
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-purple-500 mb-4">Output</h2>
@@ -291,14 +295,6 @@ const CodingPracticeApp = () => {
           isOpen={showAiExplanation}
           onClose={() => setShowAiExplanation(false)}
           problem={selectedProblem}
-        />
-      )}
-      {showAiCodeReview && selectedProblem && (
-        <AiCodeReviewModal
-          isOpen={showAiCodeReview}
-          onClose={() => setShowAiCodeReview(false)}
-          problem={selectedProblem}
-          userCode={code}
         />
       )}
       {showQuiz && selectedProblem && (
