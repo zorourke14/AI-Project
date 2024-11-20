@@ -103,7 +103,7 @@ if __name__ == "__main__":
     input_data = json.loads(sys.argv[1])[0]  # Extract the array from the outer array
     root = create_binary_tree(input_data)
     result = height_of_binary_tree(root)
-    print(result - 1)
+    print(result)
 `,
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
 const GiveSolution = ({ problemId, problemDescription, userCode }) => {
@@ -79,6 +79,7 @@ const GiveSolution = ({ problemId, problemDescription, userCode }) => {
             <p className="text-gray-600 dark:text-gray-300 mb-6">
               We recommend trying to solve the problem yourself first. Looking at the solution too early might prevent you from learning effectively.
             </p>
+            
             <div className="flex justify-end space-x-4">
               <button
                 onClick={() => setShowConfirmDialog(false)}
@@ -87,8 +88,16 @@ const GiveSolution = ({ problemId, problemDescription, userCode }) => {
                 Keep Trying
               </button>
               <button
-                onClick={handleGetSolution}
+                onClick={
+                  () => {
+                    if (handleGetSolution){
+                      handleGetSolution();
+                      setShowConfirmDialog(false);
+                    }
+                  }
+                }
                 className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-600 transition-colors"
+                disabled={isLoading}
               >
                 Show Solution
               </button>
